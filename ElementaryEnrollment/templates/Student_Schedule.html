@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule</title>
+
+</head>
+
+<body>
+    {% extends 'student_template.html' %}
+
+    {% block title %}Student Profile{% endblock %}
+
+    {% block content %}
+
+    <div class="schedule-container">
+        <h2>Class Schedules</h2>
+        {% for schedule in schedules %}
+        <h3>{{ schedule.section }}</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slot in schedule.time_slots.all %}
+                <tr>
+                    <td>{{ slot.get_day_display }}</td>
+                    <td>{{ slot.start_time }} - {{ slot.end_time }}</td>
+                    <td>{{ slot.subject.name }}</td>
+                    <td>{% if slot.teacher %}{{ slot.teacher.username }}{% else %}N/A{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>
+
+</html>

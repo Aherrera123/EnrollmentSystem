@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <style>
+        /* Styling for messages */
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid;
+            border-radius: 5px;
+        }
+        .message.success {
+            color: green;
+            background-color: #eaffea;
+            border-color: green;
+        }
+        .message.error {
+            color: red;
+            background-color: #ffeaea;
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    {% extends 'student_template.html' %}
+
+    {% block title %}Student Profile{% endblock %}
+
+    {% block content %}
+    <div class="account-container">
+        <h2>Account Settings</h2>
+        <!-- Display success or error messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Form for changing the password -->
+        <form method="POST">
+            {% csrf_token %}
+            <label>Old Password:</label><br>
+            <input type="password" name="old_password" placeholder="Enter current password" required><br><br>
+
+            <label>New Password:</label><br>
+            <input type="password" name="new_password" placeholder="Enter new password" required><br><br>
+
+            <label>Confirm Password:</label><br>
+            <input type="password" name="confirm_password" placeholder="Confirm new password" required><br><br>
+
+            <button type="submit" class="btn-change-password">Change Password</button>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>
