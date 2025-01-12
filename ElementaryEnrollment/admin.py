@@ -132,7 +132,7 @@ class StudentAdmin(RegistrarAdminMixin, admin.ModelAdmin):
 
 @admin.register(Enrollment)
 class EnrollmentAdmin(RegistrarAdminMixin, admin.ModelAdmin):
-    list_display = ('student', 'student_type', 'grade_level', 'status', 'enrollment_date')
+    list_display = ('student', 'student_type', 'grade_level', 'status', 'enrollment_date', 'kindergarten_certificate', 'transferee_report_card')
     list_filter = ('student_type', 'grade_level', 'status', 'academic_year')
     search_fields = ('student__last_name', 'student__first_name', 'student__student_id')
     date_hierarchy = 'enrollment_date'

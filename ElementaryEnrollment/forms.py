@@ -20,7 +20,7 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = [
-            'student_id','last_name', 'first_name', 'middle_name', 'suffix', 'birth_date', 'sex', 'email',
+            'last_name', 'first_name', 'middle_name', 'suffix', 'birth_date', 'sex', 'email',
             'street', 'barangay', 'city', 'state_province', 'country'  # New address fields for student
         ]
 class StudentEditForm(forms.ModelForm):

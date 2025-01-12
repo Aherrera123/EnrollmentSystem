@@ -25,6 +25,7 @@ from .forms import AnnouncementForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import check_password
 import pytz
+from datetime import datetime
 
 User = get_user_model()
 
@@ -147,7 +148,7 @@ def registration_view(request):
         if student_type == 'new':
             enrollment_form = EnrollmentFormNewStudent(request.POST, request.FILES)
             enrollment_new_form = enrollment_form
-        elif student_type == 'transferee':
+        elif student_type == 'transfer':
             enrollment_form = EnrollmentFormTransferee(request.POST, request.FILES)
             enrollment_transferee_form = enrollment_form
         else:
@@ -179,6 +180,10 @@ def registration_view(request):
             student_data = student_form.save(commit=False)
             student_data.birth_date = student_data.birth_date.strftime('%Y-%m-%d')
             student_data.user = user
+            year_suffix = str(datetime.now().year)[2:]
+            user_pk = user.pk
+            user_number = f"{user_pk:04d}"
+            student_data.student_id = f"TESP-{year_suffix}-{user_number}"
             student_data.save()
 
             mother_data = mother_form.save(commit=False)
